@@ -32,7 +32,6 @@
           <li class="nav__list-item"><a href="single-post.html" class="hover-target">Single Post</a></li>
           <li class="nav__list-item"><a href="portfolio-masonry.html" class="hover-target">Portfolio</a></li>
           <li class="nav__list-item"><a href="single-portfolio.html" class="hover-target">Single Portfolio</a></li>
-          <li class="nav__list-item"><a href="contact.html" class="hover-target">Contact me</a></li>
         </ul>
       </div>
     </div>
@@ -107,7 +106,7 @@
                         <p class="description mb-4">
                           Designing ELT/ETL pipelines with medallion architecture (Bronze, Silver, Gold) for optimal data organization and governance.
                         </p>
-                        <a href="#about" class="cta-link d-inline-block mb-5">Let's Talk.</a>
+                        <a href="#contact" class="cta-link d-inline-block mb-5">Let's Talk.</a>
                       </div>
                     </div>
                     <div class="swiper-slide">
@@ -200,9 +199,9 @@
                 <!-- Mobile-only content -->
                 <div class="d-lg-none mt-5">
                   <hr class="sidebar-divider">
-                  <p class="job-title mb-2">UI/UX DESIGNER / ART DIRECTOR</p>
-                  <p class="location mb-4">MYKOLAIV, UKRAINE</p>
-                  <a href="#" class="cta-button d-block text-center">VIEW ALL WORKS</a>
+                  <p class="job-title mb-2">DATA PLATFORM ENGINEER</p>
+                  <p class="location mb-4"></p>
+                  <a href="https://www.linkedin.com/in/vasu-patel19/" target="_blank" class="cta-button d-block text-center">LINKEDIN</a>
                 </div>
               </div>
             </div>
@@ -210,10 +209,10 @@
             <!-- CTA Button (Desktop) -->
             <div class="col-lg-3 d-none d-lg-block position-fixed bottom-0 end-0 p-0" style="z-index: 8;">
               <!-- <a href="#" class="cta-button d-block">VIEW ALL WORKS</a> -->
-              <button class="btn-special w-100" data-aos="fade-up" data-aos-delay="800" data-aos-anchor-placement="top-bottom">
+              <button id="cta-hide" class="btn-special w-100" onclick="window.open('https://calendly.com/vasupatel-atwork/quick-meet', '_blank')" data-aos="fade-up" data-aos-delay="800" data-aos-anchor-placement="top-bottom">
                   <span class="text-container">
                       <span class="original-text">GET IN TOUCH</span>
-                      <span class="hover-text">MAIL ME</span>
+                      <span class="hover-text">FOR A COFFEE CHAT</span>
                   </span>
               </button>
             </div>
@@ -434,7 +433,7 @@
             </div>
           </section>
 
-          <section id="contact" class="pt-4 pt-lg-5 px-4 px-lg-5 my-5 py-5">
+          <section id="contact" class="pt-4 pt-lg-5 px-4 px-lg-5 my-5 py-5 contact-hero">
             <div class="container">
               <div class="row mb-5">
                 <div class="col-lg-6" data-aos="fade-up">
@@ -518,15 +517,16 @@
                     <div class="contact-form py-4">
                       <form id="form" class="form-group" action="https://formspree.io/f/mojjvzrj" method="POST">
                         <div class="pb-2"><input type="text" name="name" placeholder="Your Full Name"
-                            class="form-control">
+                            class="form-control" required>
                         </div>
                         <div class="pb-2"><input type="text" name="address" placeholder="Your Email Address"
-                            class="form-control"></div>
-                        <div class="pb-2"><textarea placeholder="Your Message" rows="6" class="form-control"></textarea>
+                            class="form-control" required></div>
+                        <div class="pb-2"><textarea name="message" placeholder="Your Message" rows="6" class="form-control" required></textarea>
                         </div>
                         <button type="submit" name="submit" class="btn btn-dark w-100 btn-rounded">Submit</button>
                       </form>
                     </div>
+
                   </div>
                 </div>
 
@@ -545,6 +545,33 @@
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
+
+    <script>
+        (function() {
+        const cta = document.querySelector('.btn-special');
+        const contact = document.getElementById('contact');
+  
+        if (!cta || !contact) return;
+  
+        const contactTop = contact.offsetTop;
+  
+        function hideCTA() {
+          const scrollY = window.scrollY || window.pageYOffset;
+          if (scrollY >= contactTop - 200) {
+           cta.style.display = 'none';
+          } else {
+            cta.style.display = 'block';
+          }
+        }
+  
+        window.addEventListener('scroll', hideCTA, { passive: true });
+        hideCTA();
+  
+        // Also hide if already scrolled
+        setTimeout(hideCTA, 100);
+        })();
+      </script>
+
 
   </body>
 </html>

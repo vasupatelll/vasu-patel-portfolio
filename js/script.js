@@ -158,3 +158,44 @@
 	});
 
 })(jQuery);
+
+// Form submission
+document.getElementById('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(this);
+  fetch(this.action, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      this.reset();
+      showMessage('Thanks! I\'ll reply within 24 hours.', 'success');
+    } else {
+      showMessage('Submission failed. Try again or email me directly.', 'error');
+    }
+  }).catch(() => {
+    showMessage('Network error. Please email me directly.', 'error');
+  });
+});
+
+function showMessage(msg, type) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `form-message ${type}`;
+  messageDiv.textContent = msg;
+  this.parentNode.insertBefore(messageDiv, this);
+  setTimeout(() => messageDiv.remove(), 5000);
+}
+
+// Fix mobile form clicks
+document.addEventListener('DOMContentLoaded', function() {
+  const formElements = document.querySelectorAll('.contact-form input, .contact-form textarea, .contact-form button');
+  formElements.forEach(el => {
+    el.style.position = 'relative';
+    el.style.zIndex = '9999';
+    el.style.pointerEvents = 'auto';
+  });
+});

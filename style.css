@@ -1,5 +1,5 @@
 :root,
-[data-bs-theme=light] {
+[data-bs-theme=dark] {
   --heading-font: "Roboto", Verdana, serif;
   --heading-font-weight: 700;
   --heading-color: var(--bs-dark);
@@ -1177,3 +1177,197 @@ body.nav-active .nav__list-item:nth-child(10) {
   max-width: 760px;
   z-index: 0;
 }
+
+/* Mobile form fix */
+@media (max-width: 991px) {
+  .contact-form {
+    position: relative;
+    z-index: 5 !important;
+  }
+  
+  .contact-form button,
+  .contact-form input,
+  .contact-form textarea {
+    pointer-events: auto !important;
+    z-index: 10 !important;
+    position: relative !important;
+  }
+  
+  .form-control:focus {
+    z-index: 15 !important;
+  }
+}
+
+#form, #form * {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+/* NUCLEAR FORM FIX - Overrides everything */
+#contact .contact-form,
+#contact .contact-form * {
+  z-index: 99999 !important;
+  pointer-events: all !important;
+  position: relative !important;
+  touch-action: manipulation !important;
+}
+
+/* Kill nav overlay interference */
+.nav-overlay {
+  pointer-events: none !important;
+}
+
+body.nav-active #contact .contact-form * {
+  pointer-events: all !important;
+}
+
+/* MOBILE NAV FIX - Keeps nav but allows form clicks */
+@media (max-width: 991.98px) {
+  .nav-overlay {
+    pointer-events: none !important;
+  }
+  
+  .nav-overlay * {
+    pointer-events: none !important;
+  }
+  
+  /* Contact form ALWAYS clickable */
+  #contact,
+  #contact * {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 999999 !important;
+  }
+  
+  /* Form inputs specifically */
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form button {
+    pointer-events: auto !important;
+    z-index: 1000000 !important;
+  }
+}
+
+/* Desktop: nav works normally */
+@media (min-width: 992px) {
+  .nav-overlay {
+    pointer-events: auto !important;
+  }
+}
+
+/* MOBILE NAV LINKS CLICKABLE - Only when menu open */
+@media (max-width: 991px) {
+  body.nav-active .nav-overlay {
+    pointer-events: auto !important;
+  }
+  
+  body.nav-active .nav__list-item a {
+    pointer-events: auto !important;
+    z-index: 1001 !important;
+  }
+  
+  /* Form still works */
+  #contact * {
+    pointer-events: auto !important;
+  }
+}
+
+/* FIX 1: Nav overlay stays in place, no scrolling bleed */
+.nav-overlay {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 999 !important; /* Above everything except contact */
+}
+
+.nav__content {
+  position: fixed !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 800px;
+}
+
+/* FIX 2: Contact ALWAYS above nav */
+#contact {
+  position: relative !important;
+  z-index: 10000 !important;
+}
+
+#contact * {
+  z-index: 10001 !important;
+}
+
+/* Mobile: nav clickable only when active */
+@media (max-width: 991px) {
+  body.nav-active .nav-overlay {
+    pointer-events: auto !important;
+  }
+  
+  body:not(.nav-active) .nav-overlay {
+    pointer-events: none !important;
+  }
+}
+
+
+/* NUCLEAR CONTACT FIX - Nothing blocks it */
+#contact {
+  position: relative !important;
+  z-index: 999999 !important;
+  background: #111 !important; /* Dark bg prevents bleed */
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  z-index: -1;
+}
+
+.contact-form,
+.contact-form * {
+  position: relative !important;
+  z-index: 1000000 !important;
+  pointer-events: auto !important;
+}
+
+/* Nav below everything when not active */
+body:not(.nav-active) .nav-overlay {
+  z-index: 1 !important;
+}
+
+body.nav-active .nav-overlay {
+  z-index: 9999 !important; /* Still below contact */
+}
+
+/* Section nav always clickable */
+.section-nav * {
+  pointer-events: auto !important;
+  z-index: 100 !important;
+}
+
+/* PERFECT MOBILE NAV + CONTACT */
+.nav-overlay { position: fixed !important; z-index: 999 !important; }
+#contact { position: relative !important; z-index: 1000 !important; }
+.contact-form * { pointer-events: auto !important; z-index: 1001 !important; }
+body.nav-active .nav__list-item a { pointer-events: auto !important; }
+
+/* Hide CTA button when at contact */
+.hide-cta {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(20px) !important;
+  transition: all 0.3s ease !important;
+}
+
+
