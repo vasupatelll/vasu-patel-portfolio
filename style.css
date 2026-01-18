@@ -1371,3 +1371,31 @@ body.nav-active .nav__list-item a { pointer-events: auto !important; }
 }
 
 
+#cta-hide {
+  transition: all 0.4s ease !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#cta-hide.cta-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+body {
+  background-color: #00170C !important;
+  background: #00170C !important;
+}
+
+html {
+  background-color: #00170C !important;
+  background: #00170C !important;
+}
+
+.container-fluid {
+  background-color: #00170C !important;
+}
+ 

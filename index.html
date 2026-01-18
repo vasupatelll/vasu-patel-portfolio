@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="style.css">
 
   </head>
-  <body data-bs-theme="dark">
+  <body data-bs-theme="dark" style="background-color: #00170C !important; background: #00170C !important;">
+  
     
     <div class="nav nav-overlay">
       <div class="nav__content">
@@ -48,7 +49,7 @@
         <!-- Sidebar -->
         <div class="col-lg-3 position-fixed z-1 h-100" data-aos="slide-right" data-aos-delay="200">
           <div class="sidebar p-4 p-lg-5 vh-100 d-flex flex-column position-relative">
-            <a href="index.html" class="logo mb-0 text-decoration-none">Vasu.</a>
+            <a href="index.html" class="logo mb-0 text-decoration-none" >Vasu.</a>
             <p class="bio mt-4 d-none d-lg-block" style="max-width: 200px;">
               DATA PLATFORM ENGINEER INTERN WITH EXPERTISE IN ETL/ELT PIPELINES, CLOUD DATA INFRASTRUCTURE, AND AI-READY SOLUTIONS.
             </p>
@@ -547,30 +548,37 @@
     <script src="js/script.js"></script>
 
     <script>
-        (function() {
-        const cta = document.querySelector('.btn-special');
+      (function() {
+        'use strict';
+        
+        const cta = document.getElementById('cta-hide');
+        if (!cta) return;
+        
         const contact = document.getElementById('contact');
-  
-        if (!cta || !contact) return;
-  
-        const contactTop = contact.offsetTop;
-  
+        if (!contact) return;
+        
         function hideCTA() {
-          const scrollY = window.scrollY || window.pageYOffset;
-          if (scrollY >= contactTop - 200) {
-           cta.style.display = 'none';
+          const contactRect = contact.getBoundingClientRect();
+          const isContactInView = contactRect.top <= window.innerHeight;
+          
+          if (isContactInView) {
+            cta.classList.add('cta-hidden');
           } else {
-            cta.style.display = 'block';
+            cta.classList.remove('cta-hidden');
           }
         }
-  
+        
         window.addEventListener('scroll', hideCTA, { passive: true });
+        window.addEventListener('resize', hideCTA);
+        
+        // Initial checks
         hideCTA();
-  
-        // Also hide if already scrolled
         setTimeout(hideCTA, 100);
-        })();
-      </script>
+        setTimeout(hideCTA, 500);
+      })();
+    </script>
+
+
 
 
   </body>
