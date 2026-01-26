@@ -1483,3 +1483,60 @@ html {
     text-decoration: none !important;
   }
 }
+
+/* ======================================================
+   NON-DESTRUCTIVE INTERACTION FIX (Professional Implementation)
+   ====================================================== */
+
+/* 1. Make the navigation overlay 'click-through' by default so it doesn't block the screen */
+.nav-overlay {
+    pointer-events: none !important;
+}
+
+/* 2. Only make the overlay catch clicks when the menu is actually OPEN */
+body.nav-active .nav-overlay {
+    pointer-events: auto !important;
+}
+
+@media (max-width: 991px) {
+    /* 3. Make the Sidebar container click-through on mobile */
+    /* This prevents the .col-lg-3 from acting as an invisible shield */
+    .sidebar, 
+    .col-lg-3.position-fixed {
+        pointer-events: none !important;
+    }
+
+    /* 4. Explicitly re-enable clicks for the actual buttons inside those containers */
+    .cta-button,
+    .social-icon,
+    .view-all-btn,
+    button[type="submit"],
+    #contact-form,
+    .nav-overlay a {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+    }
+}
+
+/* ======================================================
+   MOBILE LINKEDIN BUTTON REFINEMENT
+   ====================================================== */
+@media (max-width: 991px) {
+    .cta-button {
+        background-color: var(--bs-primary) !important;
+        color: #fff !important;
+        font-family: var(--heading-font) !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 3px !important;
+        border-radius: 0 !important; /* Matches your theme's sharp design */
+        transition: all 0.3s ease !important;
+        border: 1px solid var(--bs-primary) !important;
+    }
+
+    .cta-button:active {
+        background-color: transparent !important;
+        color: var(--bs-primary) !important;
+        transform: translateY(2px);
+    }
+}
