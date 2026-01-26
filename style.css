@@ -1519,24 +1519,143 @@ body.nav-active .nav-overlay {
 }
 
 /* ======================================================
-   MOBILE LINKEDIN BUTTON REFINEMENT
+   MOBILE OVERLAP & POSITIONING FIX
    ====================================================== */
-@media (max-width: 991px) {
-    .cta-button {
-        background-color: var(--bs-primary) !important;
-        color: #fff !important;
-        font-family: var(--heading-font) !important;
-        font-weight: 900 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 3px !important;
-        border-radius: 0 !important; /* Matches your theme's sharp design */
-        transition: all 0.3s ease !important;
-        border: 1px solid var(--bs-primary) !important;
-    }
 
-    .cta-button:active {
-        background-color: transparent !important;
-        color: var(--bs-primary) !important;
-        transform: translateY(2px);
-    }
+@media (max-width: 991px) {
+  /* 1. Force the Skills section to expand naturally */
+  /* This prevents it from overlapping the 'About' section below it */
+  #skills {
+  margin-top: 150px !important; /* Increase this number to move it even lower */
+}
+  
+  #skills .vh-100 {
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    display: block !important;
+  }
+
+  /* 2. Add professional spacing between sections */
+  #skills {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+    margin-top: 0 !important;
+  }
+
+  /* 3. Ensure the Introduction doesn't have extra bottom padding blocking the Skills */
+  #intro {
+    padding-bottom: 20px !important;
+    height: auto !important;
+  }
+
+  /* 4. Ensure the LinkedIn button at the bottom of Skills is visible and clickable */
+  #skills .d-lg-none {
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  .view-all-btn {
+  display: block !important;
+  width: 100% !important;
+  padding: 30px 20px !important; /* Matches LinkedIn padding */
+  background-color: var(--primary-darker) !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+  color: var(--text-color) !important;
+  border-radius: 0 !important;
+  text-align: center !important;
+}
+}
+
+/* ======================================================
+   MOBILE POSITIONING: MOVE SKILLS LOWER
+   ====================================================== */
+
+@media (max-width: 991px) {
+  #skills {
+    /* Increasing this number moves the section lower */
+    margin-top: 120px !important; 
+    
+    /* Keep these to prevent overlapping the section below */
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Ensures the 'About' section waits for Skills to finish */
+  #about {
+    margin-top: 40px !important;
+  }
+}
+
+/* ======================================================
+   ULTIMATE MOBILE PARALLAX ENGINE
+   ====================================================== */
+
+@media (max-width: 991px) {
+  /* 1. The Smooth Scroll Container */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 2. Parallax Background Depth */
+  body {
+    background-attachment: scroll !important; /* Better for mobile GPU */
+    background-image: linear-gradient(180deg, #00170C 0%, #000c06 100%) !important;
+  }
+
+  /* 3. The "Floating" Section Effect */
+  section {
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+    overflow: hidden;
+    /* Softens the entry of each section */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 4. Scroll-Triggered Heading Animation */
+  /* This creates a "sliding" parallax feel for titles */
+  .name, .skill h3, #portfolio h2 {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    animation: revealText linear forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+
+  /* 5. The "Elevated" Cards (Portfolio & Skills) */
+  .skill, .image-holder {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease-out;
+    will-change: transform;
+    /* This makes cards slightly tilt up as you reach them */
+    animation: cardFloat linear forwards;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+
+  @keyframes revealText {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes cardFloat {
+    from { transform: translateY(80px) rotateX(10deg); opacity: 0; }
+    to { transform: translateY(0) rotateX(0deg); opacity: 1; }
+  }
+
+  /* 6. The "LinkedIn" Sticky Momentum */
+  .cta-button {
+    position: sticky !important;
+    bottom: 0;
+    z-index: 9999;
+    /* Glassmorphism effect for the button */
+    background: rgba(212, 47, 47, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
 }
