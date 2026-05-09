@@ -313,6 +313,18 @@ body {
   margin: 20px 0;
 }
 
+/* Intro section positioning for proper layering */
+#intro {
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+
+#intro > div:first-child {
+  position: relative;
+  z-index: 6;
+}
+
 
 .job-title {
   font-weight: 900;
